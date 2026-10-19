@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Professor - Hora de Aprender</title>
+    <style>
+        :root {
+            --primary-color: #f59e0b;
+            --primary-hover: #d97706;
+            --accent-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+            --purple-color: #8b5cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-logo {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .btn-logout {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-logout:hover { background-color: #dc2626; }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 { font-size: 22px; color: #1e293b; }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-primary:hover { background-color: var(--primary-hover); }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            margin-bottom: 25px;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .card.precadastro-card { border-top-color: var(--primary-color); }
+        .card.relatorio-card { border-top-color: var(--success-color); }
+        .card.banco-card { border-top-color: var(--purple-color); }
+        .card.foco-card { border-top-color: #ec4899; }
+
+        .table-responsive { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th { background-color: #f1f5f9; color: #475569; font-weight: 600; }
+        tr:hover { background-color: #f8fafc; }
+
+        .actions-cell button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .btn-approve { background-color: var(--success-color); color: white; }
+        .btn-edit { background-color: #3b82f6; color: white; }
+        .btn-delete { background-color: #ef4444; color: white; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; display: none;
+        }
+
+        .modal-card {
+            background-color: white; padding: 30px; border-radius: 16px;
+            width: 100%; max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h3 { color: #1e293b; font-size: 20px; }
+        .btn-close { background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #374151; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; outline: none; background-color: #fff;
+        }
+        .form-group textarea { resize: vertical; height: 100px; }
+
+        .btn-submit {
+            width: 100%; padding: 12px; background-color: var(--primary-color); color: white;
+            border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+        .btn-submit:hover { background-color: var(--primary-hover); }
+
+        footer { text-align: center; padding: 20px; background-color: #1e293b; color: #94a3b8; font-size: 13px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>
+            <img src="logo.png" alt="Logo" class="header-logo">
+            Painel do Professor - Hora de Aprender
+        </h1>
+        <div class="user-info">
+            <span id="userName">Prof. Administrador</span>
+            <button class="btn-logout" onclick="fazerLogout()">Sair</button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. SOLICITAÇÕES DE PRÉ-CADASTRO -->
+        <div class="section-header">
+            <h2>📌 Solicitações de Pré-Cadastro (Avaliação de Vagas)</h2>
+        </div>
+        <div class="card precadastro-card">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aluno Solicitante</th>
+                            <th>Série</th>
+                            <th>Responsável</th>
+                            <th>E-mail</th>
+                            <th>Contato</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaPreCadastros">
+                        <tr>
+                            <td>Mariana Oliveira</td>
+                            <td>3º Ano Fundamental</td>
+                            <td>Roberto Oliveira</td>
+                            <td>roberto@email.com</td>
+                            <td>(21) 98877-6655</td>
+                            <td class="actions-cell">
+                                <button class="btn-approve" onclick="aprovarPreCadastro(this, 'Mariana Oliveira', '3º Ano Fundamental', 'Roberto Oliveira', '(21) 98877-6655')">Aprovar / Efetivar</button>
+                                <button class="btn-delete" onclick="recusarPreCadastro(this)">Recusar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. ALUNOS ATIVOS -->
+        <div class="section-header">
+            <h2>🎓 Alunos Efetivados / Matriculados</h2>
+            <button class="btn-primary" onclick="abrirModalCadastro()">+ Novo Aluno Direto</button>
+        </div>
+        <div class="card">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome do Aluno</th>
+                            <th>Série</th>
+                            <th>Responsável</th>
+                            <th>Contato</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaAlunos">
+                        <tr>
+                            <td>Lucas Silva</td>
+                            <td>4º Ano Fundamental</td>
+                            <td>Maria Silva</td>
+                            <td>(21) 99888-7766</td>
+                            <td class="actions-cell">
+                                <button class="btn-edit" onclick="editarAluno(1)">Editar</button>
+                                <button class="btn-delete" onclick="deletarAluno(this)">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. MURAL DE AVISOS E RECADOS RÁPIDOS PARA OS PAIS (Ponto 1) -->
+        <div class="card" style="border-top-color: #0ea5e9;">
+            <h3 style="margin-bottom: 15px; color: #1e293b;">📢 Mural de Avisos e Recados Rápidos</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">
+                Publique recados rápidos que aparecerão imediatamente no painel dos pais/alunos (ex: horários de feriado, lembretes de material).
+            </p>
+            <form id="formAviso" onsubmit="publicarAviso(event)">
+                <div class="form-group">
+                    <label for="tituloAviso">Título do Aviso:</label>
+                    <input type="text" id="tituloAviso" placeholder="Ex: Lembrete sobre o horário de atendimento" required>
+                </div>
+                <div class="form-group">
+                    <label for="conteudoAviso">Mensagem:</label>
+                    <textarea id="conteudoAviso" placeholder="Escreva o aviso aqui..." style="height: 80px;" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit" style="background-color: #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);">Publicar Aviso no Mural</button>
+            </form>
+        </div>
+
+        <!-- 4. BANCO DE FOLHAS DE EXERCÍCIOS E SIMULADOS (Ponto 2) -->
+        <div class="card banco-card">
+            <h3 style="margin-bottom: 15px; color: #1e293b;">🗂️ Banco de Folhas de Exercícios e Provas</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">
+                Centralize e organize o acervo de folhas de fortalecimento e simulados de provas criados pelo professor.
+            </p>
+            <form id="formMaterial" onsubmit="salvarMaterial(event)">
+                <div class="form-group">
+                    <label for="tituloMaterial">Título do Material / Assunto:</label>
+                    <input type="text" id="tituloMaterial" placeholder="Ex: Lista de Frações e Divisão - 4º Ano" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoriaMaterial">Categoria:</label>
+                    <select id="categoriaMaterial" required>
+                        <option value="Folha de Exercícios">Folha de Exercícios / Fortalecimento</option>
+                        <option value="Simulado / Prova">Simulado / Prova de Preparação</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="descricaoMaterial">Observações ou Link do Arquivo:</label>
+                    <input type="text" id="descricaoMaterial" placeholder="Ex: Arquivo impresso guardado na pasta azul" required>
+                </div>
+                <button type="submit" class="btn-submit" style="background-color: var(--purple-color); box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);">Salvar no Banco de Materiais</button>
+            </form>
+        </div>
+
+        <!-- 5. FOCO DO MÊS / METAS MENSAIS (Ponto 3) -->
+        <div class="card foco-card">
+            <h3 style="margin-bottom: 15px; color: #1e293b;">🎯 Foco do Mês (Metas Mensais)</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">
+                Defina o objetivo pedagógico geral deste mês para que os responsáveis acompanhem o planejamento.
+            </p>
+            <form id="formFocoMes" onsubmit="salvarFocoMes(event)">
+                <div class="form-group">
+                    <label for="mesReferencia">Mês de Referência:</label>
+                    <input type="text" id="mesReferencia" placeholder="Ex: Outubro / 2026" required>
+                </div>
+                <div class="form-group">
+                    <label for="metaMensal">Objetivos e Conteúdos em Destaque no Mês:</label>
+                    <textarea id="metaMensal" placeholder="Descreva o foco pedagógico mensal (ex: Tabuada avançada, interpretação de textos informativos...)" style="height: 80px;" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit" style="background-color: #ec4899; box-shadow: 0 4px 10px rgba(236, 72, 153, 0.3);">Atualizar Foco do Mês</button>
+            </form>
+        </div>
+
+        <!-- 6. RELATÓRIO INDIVIDUAL DE DESEMPENHO -->
+        <div class="card relatorio-card">
+            <h3 style="margin-bottom: 15px; color: #1e293b;">📊 Relatório Individual e Desempenho do Aluno</h3>
+            <form id="formRelatorio" onsubmit="salvarRelatorio(event)">
+                <div class="form-group">
+                    <label for="selectAlunoRelatorio">Selecione o Aluno Matriculado:</label>
+                    <select id="selectAlunoRelatorio" required>
+                        <option value="">Escolha um aluno...</option>
+                        <option value="Lucas Silva">Lucas Silva (4º Ano)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="textoRelatorio">Anotações de Desempenho:</label>
+                    <textarea id="textoRelatorio" placeholder="Progresso pedagógico individual..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit" style="background-color: var(--success-color);">Publicar Relatório Individual</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- MODAL NOVO ALUNO -->
+    <div class="modal-overlay" id="modalCadastro">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitulo">Cadastrar Novo Aluno</h3>
+                <button class="btn-close" onclick="fecharModalCadastro()">&times;</button>
+            </div>
+            <form id="formAlunoModal" onsubmit="salvarAluno(event)">
+                <div class="form-group">
+                    <label for="nomeAluno">Nome Completo do Aluno:</label>
+                    <input type="text" id="nomeAluno" required>
+                </div>
+                <div class="form-group">
+                    <label for="serieAluno">Ano / Série Escolar:</label>
+                    <input type="text" id="serieAluno" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomeResponsavel">Nome do Responsável:</label>
+                    <input type="text" id="nomeResponsavel" required>
+                </div>
+                <div class="form-group">
+                    <label for="contatoResponsavel">Telefone / WhatsApp:</label>
+                    <input type="text" id="contatoResponsavel" required>
+                </div>
+                <button type="submit" class="btn-submit">Salvar Cadastro</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Reforço Escolar Hora de Aprender. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function fazerLogout() { localStorage.removeItem('tokenJWT'); window.location.href = 'login.html'; }
+        const modal = document.getElementById('modalCadastro');
+        function abrirModalCadastro() { document.getElementById('formAlunoModal').reset(); modal.style.display = 'flex'; }
+        function fecharModalCadastro() { modal.style.display = 'none'; }
+
+        function aprovarPreCadastro(botao, nome, serie, resp, contato) {
+            if (confirm(`Efetivar matrícula de ${nome}?`)) {
+                botao.closest('tr').remove();
+                const tbodyAlunos = document.getElementById('tabelaAlunos');
+                tbodyAlunos.innerHTML += `<tr><td>${nome}</td><td>${serie}</td><td>${resp}</td><td>${contato}</td><td class="actions-cell"><button class="btn-edit">Editar</button><button class="btn-delete" onclick="this.closest('tr').remove()">Excluir</button></td></tr>`;
+                alert('Aluno efetivado com sucesso!');
+            }
+        }
+        function recusarPreCadastro(botao) { if (confirm('Recusar pré-cadastro?')) { botao.closest('tr').remove(); } }
+        function salvarAluno(e) {
+            e.preventDefault();
+            alert('Aluno cadastrado com sucesso!');
+            fecharModalCadastro();
+        }
+        function publicarAviso(e) { e.preventDefault(); alert('Aviso publicado com sucesso no mural!'); e.target.reset(); }
+        function salvarMaterial(e) { e.preventDefault(); alert('Material salvo no banco de exercícios!'); e.target.reset(); }
+        function salvarFocoMes(e) { e.preventDefault(); alert('Foco do mês atualizado com sucesso!'); e.target.reset(); }
+        function salvarRelatorio(e) { e.preventDefault(); alert('Relatório publicado!'); e.target.reset(); }
+    </script>
+</body>
+</html>

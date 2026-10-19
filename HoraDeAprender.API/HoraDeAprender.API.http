@@ -1,0 +1,6 @@
+@HoraDeAprender.API_HostAddress = http://localhost:5062
+
+GET {{HoraDeAprender.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
