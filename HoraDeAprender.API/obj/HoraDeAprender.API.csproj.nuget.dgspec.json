@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj": {}
+    "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj": {
+    "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
+        "projectUniqueName": "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
         "projectName": "HoraDeAprender.API",
-        "projectPath": "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
+        "projectPath": "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
         "packagesPath": "C:\\Users\\ale\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\obj\\",
+        "outputPath": "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ale\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -48,10 +48,6 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[10.0.13, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
               "version": "[10.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
@@ -66,7 +62,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.6.2, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
