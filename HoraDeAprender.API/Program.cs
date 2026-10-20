@@ -1,27 +1,21 @@
-using Microsoft.EntityFrameworkCore;
-using HoraDeAprender.API.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("PermitirTudo", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
-
-// Alterado de UseSqlServer para UseSqlite
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+// Adicionar serviços ao contentor
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors("PermitirTudo");
+// Configurar o Swagger para funcionar em Produção e na Raiz
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "HoraDeAprender API V1");
+    c.RoutePrefix = string.Empty; // Faz o Swagger abrir diretamente na raiz (ex: horadeaprender.onrender.com)
+});
+
+app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
