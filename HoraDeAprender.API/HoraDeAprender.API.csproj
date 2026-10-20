@@ -11,8 +11,3 @@
   </ItemGroup>
 
 </Project>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-
-</Project>
