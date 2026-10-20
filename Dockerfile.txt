@@ -1,7 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
+COPY ["HoraDeAprender.API/HoraDeAprender.API.csproj", "HoraDeAprender.API/"]
+RUN dotnet restore "HoraDeAprender.API/HoraDeAprender.API.csproj"
 COPY . .
-RUN dotnet publish -c Release -o out
+WORKDIR "/app/HoraDeAprender.API"
+RUN dotnet publish -c Release -o /app/out
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
