@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
@@ -32,7 +31,6 @@ namespace HoraDeAprender.API.Controllers
             return CreatedAtAction(nameof(GetFocoMes), new { id = foco.Id }, foco);
         }
     }
-=======
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
@@ -66,5 +64,4 @@ namespace HoraDeAprender.API.Controllers
             return CreatedAtAction(nameof(GetFocoMes), new { id = foco.Id }, foco);
         }
     }
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 }

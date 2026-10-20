@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
 
@@ -49,7 +48,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-=======
 var builder = WebApplication.CreateBuilder(args);
 
 // Adicionar serviços ao contentor
@@ -72,4 +70,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161

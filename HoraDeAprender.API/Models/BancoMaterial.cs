@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 namespace HoraDeAprender.API.Models
 {
     public class BancoMaterial
@@ -9,7 +8,6 @@ namespace HoraDeAprender.API.Models
         public string LinkArquivo { get; set; } = string.Empty;
         public DateTime DataEnvio { get; set; } = DateTime.Now;
     }
-=======
 namespace HoraDeAprender.API.Models
 {
     public class BancoMaterial
@@ -20,5 +18,4 @@ namespace HoraDeAprender.API.Models
         public string LinkArquivo { get; set; } = string.Empty;
         public DateTime DataEnvio { get; set; } = DateTime.Now;
     }
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 }

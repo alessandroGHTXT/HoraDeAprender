@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 namespace HoraDeAprender.API.Models
 {
     public class RelatorioDesempenho
@@ -9,7 +8,6 @@ namespace HoraDeAprender.API.Models
         public string Comentarios { get; set; } = string.Empty;
         public DateTime DataCriacao { get; set; } = DateTime.Now;
     }
-=======
 namespace HoraDeAprender.API.Models
 {
     public class RelatorioDesempenho
@@ -20,5 +18,4 @@ namespace HoraDeAprender.API.Models
         public string Comentarios { get; set; } = string.Empty;
         public DateTime DataCriacao { get; set; } = DateTime.Now;
     }
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 }

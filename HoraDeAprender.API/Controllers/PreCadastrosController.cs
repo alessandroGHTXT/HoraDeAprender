@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
@@ -39,7 +38,6 @@ namespace HoraDeAprender.API.Controllers
             return CreatedAtAction(nameof(GetPreCadastros), new { id = preCadastro.Id }, preCadastro);
         }
     }
-=======
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
@@ -80,5 +78,4 @@ namespace HoraDeAprender.API.Controllers
             return CreatedAtAction(nameof(GetPreCadastros), new { id = preCadastro.Id }, preCadastro);
         }
     }
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 }

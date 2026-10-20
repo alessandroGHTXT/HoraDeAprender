@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Models;
 
@@ -16,7 +15,6 @@ namespace HoraDeAprender.API.Data
         public DbSet<BancoMaterial> BancoMateriais { get; set; }
         public DbSet<FocoMes> FocoMeses { get; set; }
     }
-=======
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Models;
 
@@ -34,5 +32,4 @@ namespace HoraDeAprender.API.Data
         public DbSet<BancoMaterial> BancoMateriais { get; set; }
         public DbSet<FocoMes> FocoMeses { get; set; }
     }
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 }

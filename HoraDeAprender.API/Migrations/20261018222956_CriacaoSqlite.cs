@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -151,7 +150,6 @@ namespace HoraDeAprender.API.Migrations
         }
     }
 }
-=======
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -304,4 +302,3 @@ namespace HoraDeAprender.API.Migrations
         }
     }
 }
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161

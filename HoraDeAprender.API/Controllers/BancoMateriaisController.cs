@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
@@ -32,7 +31,6 @@ namespace HoraDeAprender.API.Controllers
             return CreatedAtAction(nameof(GetBancoMateriais), new { id = material.Id }, material);
         }
     }
-=======
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
@@ -66,5 +64,4 @@ namespace HoraDeAprender.API.Controllers
             return CreatedAtAction(nameof(GetBancoMateriais), new { id = material.Id }, material);
         }
     }
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 }
