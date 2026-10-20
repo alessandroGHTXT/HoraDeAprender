@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de Aprender - Pré-Cadastro</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 40px; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: bold; }
+        input[type="text"], input[type="email"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #007bff; border: none; color: white; font-size: 16px; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #mensagem { margin-top: 15px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Pré-Cadastro - Hora de Aprender</h2>
+    <form id="formPreCadastro">
+        <div class="form-group">
+            <label for="nomeAluno">Nome do Aluno:</label>
+            <input type="text" id="nomeAluno" required>
+        </div>
+        <div class="form-group">
+            <label for="serie">Série:</label>
+            <input type="text" id="serie" required>
+        </div>
+        <div class="form-group">
+            <label for="nomeResponsavel">Nome do Responsável:</label>
+            <input type="text" id="nomeResponsavel" required>
+        </div>
+        <div class="form-group">
+            <label for="emailResponsavel">E-mail do Responsável:</label>
+            <input type="email" id="emailResponsavel" required>
+        </div>
+        <div class="form-group">
+            <label for="telefoneResponsavel">Telefone do Responsável:</label>
+            <input type="text" id="telefoneResponsavel" required>
+        </div>
+        <button type="submit">Enviar Pré-Cadastro</button>
+    </form>
+    <div id="mensagem"></div>
+</div>
+
+<script>
+    // 1. Definição da URL da API (detecta se está a correr localmente ou na internet)
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5062' 
+        : 'https://sua-api-na-nuvem.onrender.com'; // Depois substituirá por este link quando publicar a API
+
+    document.getElementById('formPreCadastro').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // 2. Recolher os dados do formulário
+        const dados = {
+            NomeAluno: document.getElementById('nomeAluno').value,
+            Serie: document.getElementById('serie').value,
+            NomeResponsavel: document.getElementById('nomeResponsavel').value,
+            EmailResponsavel: document.getElementById('emailResponsavel').value,
+            TelefoneResponsavel: document.getElementById('telefoneResponsavel').value
+        };
+
+        const divMensagem = document.getElementById('mensagem');
+        divMensagem.style.color = '#555';
+        divMensagem.textContent = 'A enviar...';
+
+        try {
+            // 3. Fazer o requisição POST usando a URL dinâmica
+            const resposta = await fetch(`${API_URL}/api/PreCadastros`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dados)
+            });
+
+            if (resposta.ok) {
+                const resultado = await resposta.json();
+                divMensagem.style.color = 'green';
+                divMensagem.textContent = `Pré-cadastro realizado com sucesso! (ID: ${resultado.id})`;
+                document.getElementById('formPreCadastro').reset();
+            } else {
+                divMensagem.style.color = 'red';
+                divMensagem.textContent = `Erro (${resposta.status}): Não foi possível realizar o pré-cadastro.`;
+            }
+        } catch (erro) {
+            console.error("Erro de conexão:", erro);
+            divMensagem.style.color = 'red';
+            divMensagem.textContent = 'Erro de conexão com o servidor. Verifique se a API está a rodar.';
+        }
+    });
+</script>
+
+</body>
+</html>

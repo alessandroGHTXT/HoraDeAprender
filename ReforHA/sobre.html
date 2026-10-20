@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de Aprender - Sobre o Reforço Escolar</title>
+    <style>
+        :root {
+            --primary-color: #f59e0b;
+            --primary-hover: #d97706;
+            --accent-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Menu Superior */
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-register {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700 !important;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 3px 8px rgba(245, 158, 11, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-register:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('fundo.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            color: #d97706;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #4b5563;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .card.blue { border-top-color: var(--accent-color); }
+        .card.purple { border-top-color: #8b5cf6; }
+        .card.green { border-top-color: #10b981; }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .card p, .card ul {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card ul li:last-child { border-bottom: none; }
+
+        .obs-tag {
+            margin-top: 15px;
+            padding: 8px 12px;
+            background-color: #fef3c7;
+            color: #92400e;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            border: 1px dashed #f59e0b;
+        }
+
+        /* Modal de Pré-Cadastro */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .modal-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 { color: #1e293b; font-size: 20px; }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background-color: #fff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+            margin-top: 5px;
+        }
+
+        .btn-submit:hover { background-color: var(--primary-hover); }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e293b;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>
+            <img src="logo.png" alt="Logo Hora de Aprender" class="header-logo">
+            Hora de Aprender
+        </h1>
+        <nav class="nav-links">
+            <a href="sobre.html">Início / Sobre</a>
+            <a href="login.html">Login</a>
+            <a class="btn-register" onclick="abrirModalPreCadastro()">Cadastrar-se</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h2>Transformando o aprendizado em uma jornada divertida</h2>
+            <p>No <strong>Hora de Aprender</strong>, nosso foco é oferecer um suporte escolar personalizado, acolhedor e focado no desenvolvimento pleno de cada criança, respeitando seu ritmo e potencializando seus resultados.</p>
+        </section>
+
+        <div class="grid-info">
+            <div class="card">
+                <h3>📖 Como Tudo Começou</h3>
+                <p>O projeto nasceu da paixão pela educação e da percepção de que muitas crianças precisam de um empurrãozinho e de um ambiente livre de distrações para destravar o seu potencial. O que começou com pequenos atendimentos personalizados, transformou-se em um espaço dedicado a transformar a relação dos alunos com os estudos.</p>
+            </div>
+
+            <div class="card blue">
+                <h3>📚 Nossas Aulas</h3>
+                <p>Trabalhamos com reforço escolar focado no auxílio aos deveres de casa, preparação para provas, nivelamento pedagógico e desenvolvimento de hábitos de estudo saudáveis (leitura, matemática e ciências) para o Ensino Fundamental.</p>
+            </div>
+        </div>
+
+        <div class="grid-info">
+            <div class="card purple">
+                <h3>🎓 Turmas Atendidas</h3>
+                <p style="margin-bottom: 10px;">Atendemos alunos nas seguintes etapas de ensino:</p>
+                <ul>
+                    <li><span>Educação Infantil</span> <strong>Pré I e Pré II</strong></li>
+                    <li><span>Ensino Fundamental I</span> <strong>1º ao 5º Ano</strong></li>
+                </ul>
+                <div class="obs-tag">
+                    📌 <strong>Obs:</strong> Turmas para o <strong>6º Ano</strong> em breve!
+                </div>
+            </div>
+
+            <div class="card green">
+                <h3>📍 Nosso Endereço</h3>
+                <p>Venha nos fazer uma visita ou agendar uma conversa presencial!</p>
+                <div style="margin-top: 15px; font-size: 14px; color: #334155;">
+                    <p><strong>Rua das Flores, nº 123 - Bairro Centro</strong></p>
+                    <p>Cidade / Estado - CEP: 00000-000</p>
+                    <p style="margin-top: 8px;"><em>Ponto de referência: Próximo à praça principal.</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-top-color: #f59e0b;">
+            <h3>⏰ Horários de Funcionamento</h3>
+            <p style="margin-bottom: 15px;">Contamos com turmas reduzidas e horários flexíveis para melhor atender às famílias:</p>
+            <ul>
+                <li><span>Turma Matutino (Manhã)</span> <strong>08:00 às 11:30</strong></li>
+                <li><span>Turma Vespertino (Tarde)</span> <strong>14:00 às 17:30</strong></li>
+                <li><span>Acompanhamento de Deveres / Plantão</span> <strong>Sob Consulta</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalPreCadastro">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Faça seu Pré-Cadastro</h3>
+                <button class="btn-close" onclick="fecharModalPreCadastro()">&times;</button>
+            </div>
+            <form id="formPreCadastro" onsubmit="enviarPreCadastro(event)">
+                <div class="form-group">
+                    <label for="nomeCrianca">Nome Completo da Criança (Aluno):</label>
+                    <input type="text" id="nomeCrianca" placeholder="Ex: Lucas Silva" required>
+                </div>
+                <div class="form-group">
+                    <label for="serieCrianca">Ano / Série Escolar:</label>
+                    <input type="text" id="serieCrianca" placeholder="Ex: 4º Ano Fundamental" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomeResponsavel">Nome do Responsável:</label>
+                    <input type="text" id="nomeResponsavel" placeholder="Ex: Maria Silva" required>
+                </div>
+                <div class="form-group">
+                    <label for="emailResponsavel">E-mail do Responsável:</label>
+                    <input type="email" id="emailResponsavel" placeholder="exemplo@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefoneResponsavel">Telefone / WhatsApp de Contato:</label>
+                    <input type="text" id="telefoneResponsavel" placeholder="(00) 00000-0000" required>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Pré-Cadastro</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Reforço Escolar Hora de Aprender. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const modal = document.getElementById('modalPreCadastro');
+        function abrirModalPreCadastro() { document.getElementById('formPreCadastro').reset(); modal.style.display = 'flex'; }
+        function fecharModalPreCadastro() { modal.style.display = 'none'; }
+        function enviarPreCadastro(e) {
+            e.preventDefault();
+            alert('Pré-cadastro enviado com sucesso! Os dados foram encaminhados para a avaliação do professor.');
+            fecharModalPreCadastro();
+        }
+    </script>
+</body>
+</html>

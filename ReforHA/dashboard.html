@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Aluno - Hora de Aprender</title>
+    <style>
+        :root {
+            --primary-color: #f59e0b;
+            --primary-hover: #d97706;
+            --accent-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-logo {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 15px; font-size: 14px; }
+
+        .btn-logout {
+            background-color: #ef4444; color: white; border: none; padding: 8px 14px;
+            border-radius: 6px; cursor: pointer; font-weight: 600; transition: background 0.2s;
+        }
+        .btn-logout:hover { background-color: #dc2626; }
+
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+
+        .welcome-card {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('fundo.jpg');
+            background-size: cover; background-position: center;
+            padding: 25px; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            margin-bottom: 25px; border: 2px solid #e2e8f0;
+        }
+        .welcome-card h2 { color: #d97706; margin-bottom: 8px; }
+
+        .card {
+            background-color: var(--card-bg); padding: 25px; border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04); border-top: 5px solid #10b981;
+            margin-bottom: 25px;
+        }
+        .card h3 { font-size: 18px; margin-bottom: 15px; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+
+        .report-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .report-item {
+            background-color: #f8fafc; border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--accent-color); border-radius: 10px; padding: 18px;
+        }
+        .report-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; color: #64748b; }
+        .report-date { font-weight: 600; color: var(--accent-color); }
+        .report-content { font-size: 14px; color: #334155; white-space: pre-line; }
+
+        footer { text-align: center; padding: 20px; background-color: #1e293b; color: #94a3b8; font-size: 13px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>
+            <img src="logo.png" alt="Logo" class="header-logo">
+            Painel do Aluno - Hora de Aprender
+        </h1>
+        <div class="user-info">
+            <span id="userName">Aluno: Lucas Silva</span>
+            <button class="btn-logout" onclick="fazerLogout()">Sair</button>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="welcome-card">
+            <h2>Acompanhamento Escolar</h2>
+            <p>Confira abaixo o planejamento mensal, avisos importantes e relatórios de progresso pedagógico.</p>
+        </div>
+
+        <!-- FOCO DO MÊS / METAS MENSAIS (Visível para o Responsável) -->
+        <div class="card" style="border-top-color: #ec4899;">
+            <h3>🎯 Foco do Mês (Outubro / 2026)</h3>
+            <div class="report-content" style="background: #fdf2f8; padding: 15px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                <strong>Objetivos Pedagógicos Mensais:</strong><br>
+                Trabalharemos a consolidação da tabuada de multiplicação de 2 a 9, além de técnicas de interpretação de pequenos textos informativos e resolução de problemas cotidianos de matemática.
+            </div>
+        </div>
+
+        <!-- MURAL DE AVISOS -->
+        <div class="card" style="border-top-color: #0ea5e9;">
+            <h3>📢 Mural de Avisos da Coordenação</h3>
+            <div class="report-list">
+                <div class="report-item" style="border-left-color: #0ea5e9;">
+                    <div class="report-header">
+                        <span class="report-date">📌 Aviso Recente</span>
+                        <span>Coordenação</span>
+                    </div>
+                    <div class="report-content">
+                        Lembramos aos responsáveis que na próxima sexta-feira teremos horário normal de reforço. Qualquer dúvida, estamos à disposição pelo WhatsApp!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RELATÓRIOS INDIVIDUAIS DE DESEMPENHO -->
+        <div class="card">
+            <h3>📊 Relatórios de Desempenho Individual</h3>
+            <div class="report-list">
+                <div class="report-item">
+                    <div class="report-header">
+                        <span class="report-date">🗓️ Postado em: 10/10/2026</span>
+                        <span>Prof. Administrador</span>
+                    </div>
+                    <div class="report-content">
+                        O aluno apresentou excelente evolução nas operações de multiplicação nesta semana. Demonstrou atenção durante os exercícios e concluiu as atividades propostas com facilidade.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Reforço Escolar Hora de Aprender. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function fazerLogout() { localStorage.removeItem('tokenJWT'); window.location.href = 'login.html'; }
+    </script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 namespace HoraDeAprender.API.Models
 {
     public class Usuario
@@ -7,4 +8,15 @@ namespace HoraDeAprender.API.Models
         public string SenhaHash { get; set; } = string.Empty;
         public string Perfil { get; set; } = string.Empty; // "Professor" ou "Aluno"
     }
+=======
+namespace HoraDeAprender.API.Models
+{
+    public class Usuario
+    {
+        public int Id { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string SenhaHash { get; set; } = string.Empty;
+        public string Perfil { get; set; } = string.Empty; // "Professor" ou "Aluno"
+    }
+>>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 }
