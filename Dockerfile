@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+ HEAD
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 COPY ["HoraDeAprender.API/HoraDeAprender.API.csproj", "HoraDeAprender.API/"]
@@ -12,7 +12,7 @@ WORKDIR /app
 COPY --from=build /app/out .
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
-=======
+
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 COPY ["HoraDeAprender.API/HoraDeAprender.API.csproj", "HoraDeAprender.API/"]
@@ -26,5 +26,4 @@ WORKDIR /app
 COPY --from=build /app/out .
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
->>>>>>> de2ee822d0f036437a66da93cefb029b32823161
 ENTRYPOINT ["dotnet", "HoraDeAprender.API.dll"]
