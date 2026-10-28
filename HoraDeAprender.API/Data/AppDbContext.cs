@@ -12,5 +12,7 @@ namespace HoraDeAprender.API.Data
         public DbSet<MuralAviso> MuralAvisos { get; set; }
         public DbSet<FocoMes> FocoMeses { get; set; }
         public DbSet<PreCadastro> PreCadastros { get; set; }
+        public DbSet<RelatorioDesempenho> RelatoriosDesempenho { get; set; }
+        public DbSet<BancoMaterial> BancoMateriais { get; set; }
     }
 }
