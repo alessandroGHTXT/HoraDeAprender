@@ -68,16 +68,20 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-// Criar base de dados SQLite automaticamente no arranque se não existir
+// Criar base de dados SQLite automaticamente no arranque
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
 }
 
-// Ativar Swagger sempre para facilitar testes no Render
+// ATIVAR SEMPRE O SWAGGER (mesmo em Release/Produção)
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "HoraDeAprender.API v1");
+    c.RoutePrefix = string.Empty; // Isto faz com que o Swagger abra logo na raiz do site do Render! (ex: o-teu-projeto.onrender.com/)
+});
 
 app.UseHttpsRedirection();
 

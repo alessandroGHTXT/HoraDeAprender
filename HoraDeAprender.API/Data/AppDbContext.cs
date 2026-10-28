@@ -8,5 +8,9 @@ namespace HoraDeAprender.API.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Aluno> Alunos { get; set; }
+        public DbSet<MuralAviso> MuralAvisos { get; set; }
+        public DbSet<FocoMes> FocoMeses { get; set; }
+        public DbSet<PreCadastro> PreCadastros { get; set; }
     }
 }

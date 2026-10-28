@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HoraDeAprender.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18f61a0a970e9e4ddddb3668a8a0528120062510")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36247a1b531ddb9033250514d457be93246251f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("HoraDeAprender.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HoraDeAprender.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -3951,11 +3951,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
+      "projectUniqueName": "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
       "projectName": "HoraDeAprender.API",
-      "projectPath": "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
+      "projectPath": "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\HoraDeAprender.API.csproj",
       "packagesPath": "C:\\Users\\ale\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\obj\\",
+      "outputPath": "C:\\Users\\ale\\Desktop\\ProjetoHA\\HoraDeAprender.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ale\\AppData\\Roaming\\NuGet\\NuGet.Config"
