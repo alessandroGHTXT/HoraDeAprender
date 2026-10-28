@@ -11,6 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=horadeaprender.db"));
 
+// 1. REGISTAR SERVIÇO DE CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -80,8 +91,11 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "HoraDeAprender.API v1");
-    c.RoutePrefix = string.Empty; // Isto faz com que o Swagger abra logo na raiz do site do Render! (ex: o-teu-projeto.onrender.com/)
+    c.RoutePrefix = string.Empty; // Faz o Swagger abrir na raiz
 });
+
+// 2. ATIVAR MIDDLEWARE DE CORS (Deve vir ANTES de Authentication e Authorization)
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
