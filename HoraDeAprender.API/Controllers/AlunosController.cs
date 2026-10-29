@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoraDeAprender.API.Data;
@@ -8,7 +7,6 @@ namespace HoraDeAprender.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize] // Descomenta se quiseres exigir token JWT para gerir alunos
     public class AlunosController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -33,7 +31,7 @@ namespace HoraDeAprender.API.Controllers
 
             if (aluno == null)
             {
-                return NotFound(new { mensagem = "Aluno não encontrado." });
+                return NotFound();
             }
 
             return aluno;
@@ -43,40 +41,16 @@ namespace HoraDeAprender.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)
         {
+            // Garante que a data de cadastro é preenchida caso venha vazia
+            if (aluno.DataCadastro == default)
+            {
+                aluno.DataCadastro = DateTime.UtcNow;
+            }
+
             _context.Alunos.Add(aluno);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetAluno), new { id = aluno.Id }, aluno);
-        }
-
-        // PUT: api/Alunos/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAluno(int id, Aluno aluno)
-        {
-            if (id != aluno.Id)
-            {
-                return BadRequest(new { mensagem = "O ID do URL não coincide com o ID do objeto." });
-            }
-
-            _context.Entry(aluno).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Alunos.Any(e => e.Id == id))
-                {
-                    return NotFound(new { mensagem = "Aluno não encontrado." });
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // DELETE: api/Alunos/5
@@ -86,7 +60,7 @@ namespace HoraDeAprender.API.Controllers
             var aluno = await _context.Alunos.FindAsync(id);
             if (aluno == null)
             {
-                return NotFound(new { mensagem = "Aluno não encontrado." });
+                return NotFound();
             }
 
             _context.Alunos.Remove(aluno);

@@ -1,16 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace HoraDeAprender.API.Models
+﻿namespace HoraDeAprender.API.Models
 {
     public class Aluno
     {
-        [Key]
         public int Id { get; set; }
-        [Required]
-        public string Nome { get; set; } = string.Empty;
-        [Required]
-        public string Email { get; set; } = string.Empty;
-        public string Telefone { get; set; } = string.Empty;
-        public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public required string Nome { get; set; }
+        public required string Serie { get; set; }        // <--- Garante que isto está aqui
+        public required string Responsavel { get; set; }  // <--- E isto também
+        public required string Email { get; set; }
+        public required string Telefone { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
     }
 }
